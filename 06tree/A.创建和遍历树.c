@@ -1,25 +1,23 @@
 #include <stdio.h>
-typedef int Elemtype;
+typedef char Elemtype;
 typedef struct Node{
 	Elemtype data;
 	struct Node *lChild;
 	struct Node *rChild;
 }BiTNode,*BiTree;
 
-char str[]="ABC^D^^E^^FCK^^^H^M^^";
+char str[50];
 
 BiTree CreatBiTree(BiTree root);//二叉树的建立
 void PreOrder(BiTree root);//前序遍历
 void InOrder(BiTree root);//中序遍历
 void PostOrder(BiTree root);//后序遍历
-void InOrder2(BiTree root);//输出叶子节点 
-int Depth(BiTree root);//求二叉树的深度
  
 BiTree CreatBiTree(BiTree root){
 	static int count;
 	char ch=str[count];
 	count++;
-	if(ch=='^')
+	if(ch=='#')
 		return NULL;
 		
 	root = (BiTNode *)malloc(sizeof(BiTNode));
@@ -74,19 +72,15 @@ int Depth(BiTree root){
 } 
 int main(void){
 	BiTree root;
+	gets(str);
 	root=CreatBiTree(root);
-	printf("前序遍历：");
+	//printf("前序遍历：");
 	PreOrder(root); 
-	
-	printf("\n中序遍历：");
+	printf("\n");
+	//printf("\n中序遍历：");
 	InOrder(root);
-	
-	printf("\n先序遍历: ");
+	printf("\n");
+	//printf("\n先序遍历: ");
 	PostOrder(root); 
-	
-	printf("\n叶子节点：");
-	InOrder2(root);
-	
-	printf("\n二叉树的深度：%d",Depth(root));
 	printf("\n");
 }

@@ -1,25 +1,17 @@
 #include <stdio.h>
-typedef int Elemtype;
+typedef char Elemtype;
 typedef struct Node{
 	Elemtype data;
 	struct Node *lChild;
 	struct Node *rChild;
 }BiTNode,*BiTree;
 
-char str[]="ABC^D^^E^^FCK^^^H^M^^";
-
-BiTree CreatBiTree(BiTree root);//二叉树的建立
-void PreOrder(BiTree root);//前序遍历
-void InOrder(BiTree root);//中序遍历
-void PostOrder(BiTree root);//后序遍历
-void InOrder2(BiTree root);//输出叶子节点 
-int Depth(BiTree root);//求二叉树的深度
- 
-BiTree CreatBiTree(BiTree root){
+char str[50];
+BiTree CreatBiTree(BiTree root){  //二叉树的建立(由扩展的先序序列建立的二叉树) 
 	static int count;
 	char ch=str[count];
 	count++;
-	if(ch=='^')
+	if(ch=='#')
 		return NULL;
 		
 	root = (BiTNode *)malloc(sizeof(BiTNode));
@@ -29,6 +21,16 @@ BiTree CreatBiTree(BiTree root){
 	return root;
 }
 
+void exchange(BiTree root){     //交换各节点的左右子树 
+	BiTree t;
+	if(root==NULL)
+		return;
+	t=root->lChild;
+	root->lChild=root->rChild;
+	root->rChild=t;
+	exchange(root->lChild);
+	exchange(root->rChild);
+}
 void PreOrder(BiTree root){
 	int static count;
 	if(root==NULL)
@@ -54,39 +56,19 @@ void PostOrder(BiTree root){
 	PostOrder(root->rChild);
 	printf("%c",root->data);
 }
-
-void InOrder2(BiTree root){
-	if(root==NULL)
-		return;
-	if(root->lChild==NULL&&root->rChild==NULL)
-		printf("%c",root->data); 
-	InOrder2(root->lChild);
-	InOrder2(root->rChild);
-} 
-
-int Depth(BiTree root){
-	int static count;
-	int dep;
-	if(root==NULL)
-		return 0;
-	dep=Depth(root->lChild)>Depth(root->rChild)?Depth(root->lChild)+1:Depth(root->rChild)+1;
-	return dep;
-} 
 int main(void){
 	BiTree root;
+	gets(str);
 	root=CreatBiTree(root);
-	printf("前序遍历：");
+	exchange(root);
+	
 	PreOrder(root); 
-	
-	printf("\n中序遍历：");
-	InOrder(root);
-	
-	printf("\n先序遍历: ");
-	PostOrder(root); 
-	
-	printf("\n叶子节点：");
-	InOrder2(root);
-	
-	printf("\n二叉树的深度：%d",Depth(root));
 	printf("\n");
+	
+	InOrder(root);
+	printf("\n");
+	
+	PostOrder(root); 
+	printf("\n");
+	
 }
