@@ -14,6 +14,7 @@ void seek(HuffmanTree ht,int n,int *s1,int *s2){
 	for(;i<n&&ht[i].parent!=-1;i++);
 	*s1 = ht[i].weight<ht[j].weight?i:j;
 	*s2 = ht[i].weight<ht[j].weight?j:i;
+	i++;
 	while(i<n){
 		if(ht[i].parent!=-1){
 			
