@@ -6,7 +6,7 @@ typedef struct{
 	char data; 
 	int parent,Lchild,Rchild;
 }HTNode,HuffmanTree[M+1];
-void seek(HuffmanTree ht,int n,int *s1,int *s2){
+void seek(HuffmanTree ht,int n,int *s1,int *s2){  //寻找ht中i之前最小的两个元素下标，s1<s2; 
 	int i,j;
 	for(i=0;i<n&&ht[i].parent!=-1;i++); //s1,s2的初始化 
 	j=i;
@@ -28,7 +28,7 @@ void seek(HuffmanTree ht,int n,int *s1,int *s2){
 		i++; 
 	}
 }
-void CrtHuffmanTree(HuffmanTree	ht,int n){
+void CrtHuffmanTree(HuffmanTree	ht,int n){ //创建哈夫曼树 
 	int m=2*n-1;
 	int i;
 	int s1,s2;
@@ -57,10 +57,10 @@ void CrtHuffmanTree(HuffmanTree	ht,int n){
 	}
 
 }
-void codinghuffman(HuffmanTree	ht,int n){
+void codinghuffman(HuffmanTree	ht,int n){ //编码所有的叶子节点 
 	int i,j;
 	char str[N];
-	int p,q; //p当前节点，q是p的当前节点 
+	int p,q; //p当前节点，q是p的双亲节点 
 	for(i=0;i<n;i++){
 		p=i;
 		for(j=0;ht[p].parent!=-1;j++){     
@@ -74,7 +74,7 @@ void codinghuffman(HuffmanTree	ht,int n){
 			p=ht[p].parent;
 		}
 		
-		printf("%c:",ht[i].data);
+		printf("%c:",ht[i].data); //打印结果 
 		for(j=j-1;j>=0;j--){
 			printf("%c",str[j],j);
 		}
@@ -82,7 +82,7 @@ void codinghuffman(HuffmanTree	ht,int n){
 	}
 } 
 
-void aCodinghuffman(HuffmanTree	ht){
+void aCodinghuffman(HuffmanTree	ht){ //编码字符串 
 	int i,j;
 	char in[N];
 	char str[N];
@@ -90,7 +90,7 @@ void aCodinghuffman(HuffmanTree	ht){
 	getchar();
 	gets(in);	
 	for(i=0;in[i];i++){ //遍历每个字母 
-		p=in[i]-'A'; 
+		p=in[i]-'A'; //确定该叶子节点存储的位置 
 		for(j=0;ht[p].parent!=-1;j++){    //解码每个字母 
 			
 			q=ht[p].parent;
@@ -108,7 +108,7 @@ void aCodinghuffman(HuffmanTree	ht){
 	printf("\n");
 } 
 
-void decodeHuffmanTree(HuffmanTree ht,int n){
+void decodeHuffmanTree(HuffmanTree ht,int n){ //译码 
 	int i,j;
 	char str[N];
 	int p=2*n-2; // p当前节点，p当前节点儿子
