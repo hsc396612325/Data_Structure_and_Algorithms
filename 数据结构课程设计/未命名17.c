@@ -60,7 +60,7 @@ BiTree CreatBiTree(BiTree root){  //二叉树的建立(由扩展的先序序列建立的二叉树)
 	static int count;
 	char ch=str[count];
 	count++;
-	if(ch=='#')
+	if(ch=='^')
 		return NULL;
 		
 	root = (BiTNode *)malloc(sizeof(BiTNode));
@@ -92,6 +92,7 @@ void PreOrder(BiTree root){
 void InOrder(BiTree root){
 	BiTree p;
 	SeqStack *S;
+	int count=0;
 	S = InitStack();
 	p = root;
 	while(p!=NULL||StackEmpty(S)==0){
@@ -102,7 +103,7 @@ void InOrder(BiTree root){
 		}
 		if(StackEmpty(S)==0){
 			Pop(S,&p);//出栈 
-			printf("%c",p->data); 
+			printf("%d %c\n",S->top+2,p->data); 
 			p=p->rChild; //遍历右子树 
 		} 
 		

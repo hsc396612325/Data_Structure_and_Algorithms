@@ -49,8 +49,8 @@ void CrtHuffmanTree(HuffmanTree	ht,int n){ //创建哈夫曼树
 	for(i=n;i<m;i++)
 	{
 		seek(ht,i,&s1,&s2);	 //寻找ht中i之前最小的两个元素下标，s1<s2; 
-		ht[s1].parent=i;
-		ht[s2].parent=i;
+		ht[s1].parent=i;  //更改s1和s2的双亲 
+		ht[s2].parent=i;  
 		ht[i].weight = ht[s1].weight+ht[s2].weight;
 		ht[i].Lchild = s1;
 		ht[i].Rchild = s2;
@@ -66,9 +66,9 @@ void codinghuffman(HuffmanTree	ht,int n){ //编码所有的叶子节点
 		for(j=0;ht[p].parent!=-1;j++){     
 			
 			q=ht[p].parent;
-			if(p==ht[q].Lchild){
+			if(p==ht[q].Lchild){ //如果是左节点,则为0 
 				str[j]='0';
-			}else{
+			}else{           //如果是右节点,则为1 
 				str[j]='1';
 			}
 			p=ht[p].parent;
@@ -90,18 +90,18 @@ void aCodinghuffman(HuffmanTree	ht){ //编码字符串
 	getchar();
 	gets(in);	
 	for(i=0;in[i];i++){ //遍历每个字母 
-		p=in[i]-'A'; //确定该叶子节点存储的位置 
+		p=in[i]-'A'; //确定该叶子节点存储的位置,这句根据具体问题而定 
 		for(j=0;ht[p].parent!=-1;j++){    //解码每个字母 
 			
 			q=ht[p].parent;
-			if(p==ht[q].Lchild){
+			if(p==ht[q].Lchild){ //如果是左孩子 
 				str[j]='0';
-			}else{
+			}else{            //如果是右孩子 
 				str[j]='1';
 			}
 			p=ht[p].parent;
-		}
-		for(j=j-1;j>=0;j--){
+		} 
+		for(j=j-1;j>=0;j--){  //打印结果 
 			printf("%c",str[j],j);
 		}
 	}

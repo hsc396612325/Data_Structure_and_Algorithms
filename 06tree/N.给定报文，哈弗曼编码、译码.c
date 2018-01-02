@@ -8,7 +8,7 @@ typedef struct{
 	int parent,Lchild,Rchild;
 }HTNode,HuffmanTree[M+1];
 int bucket[54];
-void seek(HuffmanTree ht,int n,int *s1,int *s2){
+void seek(HuffmanTree ht,int n,int *s1,int *s2){//寻找ht中i之前最小的两个元素下标，s1<s2; 
 	int i,j;
 	for(i=0;i<n&&ht[i].parent!=-1;i++); //s1,s2的初始化 
 	j=i;
@@ -109,8 +109,7 @@ void decodeHuffmanTree(HuffmanTree ht,int n,char *str){  //解码
 		}
 	} 
 }
-void 
-statistics(char *str){  
+void statistics(char *str){  
 	int i;                      //统计 
 	for(i=0;str[i+1];i++){
 		if(str[i]==' ')
