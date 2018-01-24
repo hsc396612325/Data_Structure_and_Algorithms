@@ -102,7 +102,7 @@ Elemtype input(){   //从文件中读入
 	return e;
 } 
 
-void output(){
+void output(){   //将结果写入到文件&输出到屏幕上 
 	char str[3];
 	int i,j;
 	for(i=0;i<high;i++){     //初始化输出数组 
@@ -140,8 +140,8 @@ void output(){
         exit(0);
     }
     
-    fprintf(fp,"第%d走法\n",count); 
-    printf("\n第%d走法\n",count);
+    fprintf(fp,"第%d种走法\n",count); 
+    printf("\n第%d种走法\n",count);
     for(i=0;i<high;i++){
     	for(j=0;j<width;j++){
 	    	fprintf(fp,"%s",out[i][j]); 
@@ -203,7 +203,7 @@ int dfs(Elemtype e){
 			//printf("出(%d,%d)%d\n",e1.x,e1.y,e1.direction); 
 			e1.direction++;
 		}
-	}while(!StackEmpty(SS)||e1.direction!=4);	
+	}while(!StackEmpty(SS));	
 }
 
 
@@ -214,6 +214,24 @@ int main(void)
 	SS=InitStack();
 	e=input();
 	dfs(e);//第一个参数是起始点的x坐标，第二个参数是起始点的y坐标，第三个参数是步数 
+	
+	
+	
+	FILE *fp;
+	if(count==0){
+		printf("无法走到终点\n");
+	
+		fp = fopen(OUT,"w+");
+		if(fp==NULL)
+    	{
+        	printf("文件打开失败\n");
+        	exit(0);
+    	}
+    
+    	fprintf(fp,"无法走到终点\n"); 
+     	
+		fclose(fp);
+	}
 }
 
 

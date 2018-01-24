@@ -37,7 +37,7 @@ AdjList *Create(){
 	getchar();
 	int j,k;
 	char a[3];
-	ArcNode *arc;
+	ArcNode *arci,*arcj;
 	ArcNode *p;
 	printf("\n请输入边信息如ab:\n");
 	for(i=0;i<adj->arcnum;i++){
@@ -46,11 +46,17 @@ AdjList *Create(){
 		for(j=0;adj->vertex[j].vexdata != a[0] &&j<adj->vexnum;j++);
 		for(k=0;adj->vertex[k].vexdata != a[1] &&k<adj->vexnum;k++);
 		
-		arc = (ArcNode *)malloc(sizeof(ArcNode));
+		arci = (ArcNode *)malloc(sizeof(ArcNode));
 	 	
-		arc->adhVex = k;
-		arc->next = adj->vertex[j].head;
-		adj->vertex[j].head = arc; 
+		arci->adhVex = k;
+		arci->next = adj->vertex[j].head;
+		adj->vertex[j].head = arci; 
+		
+		arcj = (ArcNode *)malloc(sizeof(ArcNode));
+	 	
+		arcj->adhVex = j;
+		arcj->next = adj->vertex[k].head;
+		adj->vertex[k].head = arcj;
 	}
 	
 	printf("你输入的邻接表如下:\n");
@@ -66,38 +72,32 @@ AdjList *Create(){
 	} 
  	return adj;
 }
-
-void Statistics(AdjList *adj){
-	int i,j;
-	int countA,countB;
+int visited[MAXVEX];
+void DFS(AdjList *GL,int i){
 	ArcNode *p;
-	for(i=0;i<adj->vexnum;i++){
-		countA=0;
-		countB=0;
-		printf("顶点%c：",adj->vertex[i].vexdata);
-		p=adj->vertex[i].head;	
-		while(p!=NULL){
-			countA++;
-			p=p->next;
+	visited[i]=1;
+	printf("%c",GL->vertex[i].vexdata);
+	p=GL->vertex[i].head;
+	while(p){
+		if(!visited[p->adhVex]){
+			DFS(GL,p->adhVex);
 		}
-		printf("出度:%d,",countA);
-		
-		for(j=0;j<adj->vexnum;j++){
-			p=adj->vertex[j].head;
-			while(p!=NULL){
-				if(p->adhVex==i){
-					countB++;
-				}
-				p=p->next;
-			}
+		p=p->next;
+	}	
+}
+void DFSTraverse(AdjList *GL){
+	int i;
+	for(i=0;i<GL->vexnum;i++){
+		if(!visited[i]){
+			DFS(GL,i);	
 		}
-		printf("入度:%d\n",countB);	
-		
 	}
 }
 int main(void){
 	AdjList *adj;
 	adj = Create();
 	printf("\n");
-	Statistics(adj);
+	printf("对图进行DFS结果如下:");
+	DFSTraverse(adj);
+	printf("\n");
 } 

@@ -13,7 +13,7 @@ AdjMatrix *Create(){
 	AdjMatrix *adj;
 	adj = (AdjMatrix*)malloc(sizeof(AdjMatrix));
 	
-	printf("请输入图的顶点数和边数:");
+	printf("请输入无向图的顶点数和边数:");
 	scanf("%d%d",&adj->vexnum,&adj->acrenum);
 	
 	int i;
@@ -42,6 +42,7 @@ AdjMatrix *Create(){
 		while(adj->Vex[j++] != a[0]&&j<adj->acrenum);
 		while(adj->Vex[k++] != a[1]&&k<adj->acrenum);
 		adj->acre[j-1][k-1]=1;
+		adj->acre[k-1][j-1]=1;
 	}
 	
 	printf("\n你输入的邻接矩阵如下:\n");
@@ -53,30 +54,32 @@ AdjMatrix *Create(){
 	}
 	
 	return adj;
-} 
-
-void Statistics(AdjMatrix *adj){
-	int i,j;
-	int countA,countB;
-	for(i=0;i<adj->vexnum;i++){
-		countA=0;
-		countB=0;
-		for(j=0;j<adj->acrenum;j++){  
-			if(adj->acre[i][j]==1){//出度
-				countA++;
-			} 
-			if(adj->acre[j][i]==1){//入度 
-				countB++; 
-			}
-		} 
-		printf("顶点%c,出度为%d,入度为%d\n",adj->Vex[i],countA,countB);
-	} 
+}
+int visited[MAXVEX]; 
+void DFS(AdjMatrix *G,int i){ //i为出发点 
+	int j;
+	visited[i]=1;
+	printf("%c",G->Vex[i]);
+	for(j=0;j<G->vexnum	;j++){
+		if(G->acre[i][j]==1&&!visited[j]){
+			DFS(G,j);
+		}
+	}	 
+}
+void DFSTraveres(AdjMatrix *G){
+	int i;
+	for(i=0;i<G->vexnum;i++){
+		if(!visited[i]){ //对未访问的点，进行DFS，如果是联通图，只会执行一次 
+			DFS(G,i);
+		}		
+	}	
 }
 int main(void){
 	AdjMatrix *adj;
 	adj = Create();
-	Statistics(adj);
+	printf("对图进行DFS结果如下:");
+	DFSTraveres(adj);
+	printf("\n");
 }
-
 
 
