@@ -13,8 +13,8 @@ AdjMatrix *Create(){
 	AdjMatrix *adj;
 	adj = (AdjMatrix*)malloc(sizeof(AdjMatrix));
 	
-	printf("请输入网的顶点数和边数:");
-    scanf("%d%d",&adj->vexnum,&adj->acrenum);
+    scanf("%d",&adj->vexnum);
+    adj->acrenum = adj->vexnum-1;
 	
 	int i;
 	printf("请输入点信息:\n");
@@ -40,7 +40,6 @@ AdjMatrix *Create(){
 	getchar();
 	printf("\n请输入边信息:如ab 2\n");
 	for(i=0;i<adj->acrenum;i++){
-		printf("请输入第%d个边和权值",i+1);
 		scanf("%s %d",a,&t);		
 		j=0;
 		k=0;	

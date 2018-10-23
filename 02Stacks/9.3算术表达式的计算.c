@@ -14,6 +14,7 @@ typedef struct
 	int top; 
 }SeqStack; 
 
+
 //新建一个空栈
 SeqStack *InitStack (){
 	 
@@ -32,6 +33,8 @@ int StackEmpty (SeqStack *S){
 	else 
 		return FALSE; 
 } 
+
+
 
 //入栈
 int Push (SeqStack *S,Elemtype e){
@@ -65,6 +68,7 @@ int GetTop (SeqStack *S,Elemtype *e){
 }  
 SeqStack *sign;//符号
 SeqStack *num;//数字栈 
+SeqStack *result;
 int Convert(char str[]) {
 	Elemtype e1,e2,e3; //e1,表达式截取的数字。e2,表达式截取的符号(待入栈)。e3符号栈栈顶符号 
 	int i,j,count=0; //count计算数字的长度 
@@ -119,9 +123,9 @@ int main(void){
 	
 	sign=InitStack();//创建栈 
 	num=InitStack();
-	
+    result=InitStack();
 	char str[100];
 	scanf("%s",str); 
 	Convert(str);
-	Calculate(result); 
+	//Calculate(result); 
 }

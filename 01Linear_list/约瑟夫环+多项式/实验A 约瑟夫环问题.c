@@ -5,7 +5,7 @@ struct node
     int NO;
     struct node *next;
 };
-struct node *create(int iCound)//链表的创建 
+struct node *create(int iCound)
 {
     struct node *pHead=NULL,*pEnd,*pNew;
     int i;
@@ -13,8 +13,7 @@ struct node *create(int iCound)//链表的创建
     for(i=0,pNew=pEnd;i<iCound;i++)
     {
         pEnd=pNew;
-        
-        pEnd->NO=i+1;
+        pEnd->NO = pNew ->NO+1;
         pNew=(struct node*)malloc(sizeof(struct node)); 
         pEnd->next=pNew; 
     }
@@ -29,14 +28,14 @@ struct node *f1(struct node *pHead,int iCound,int M)
         pi_q=pi_q->next;
     while(pi!=pi->next)
     { 
-        for(i=0;i<M-1;i++)//寻找本次需要删除的节点 
+        for(i=0;i<M-1;i++)
         {
             pi_q=pi;
             pi=pi->next;
         }
         printf("%d ",pi->NO);
               
-        pi_q->next=pi->next;//删除 
+        pi_q->next=pi->next; 
         pi=pi->next;
     }
     printf("%d\n",pi->NO); 

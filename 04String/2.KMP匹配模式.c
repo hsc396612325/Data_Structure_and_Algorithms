@@ -28,8 +28,10 @@ int Index_KMP(char *str1,char *str2,int pos){
 	for(k=0;str2[k];k++)
 		printf("%d ",next[k]); 
 	
+	int p =0;
 	while((str1[i]&&str2[j])||j==-1){
 		
+		p++;
 		if(j==-1||str1[i]==str2[j]){ //如果此时主串和子串相等，继续向下比较 
 			i++;
 			j++; 
@@ -38,6 +40,7 @@ int Index_KMP(char *str1,char *str2,int pos){
 			//j=0;        
 			j=next[j]; //j回退到对应的next中的值   
 		}
+		printf("%d\n",p);
 	}
 	
 	if(str2[j]==0) //如果退出循环时，j指向子串末尾。则说明匹配成功 

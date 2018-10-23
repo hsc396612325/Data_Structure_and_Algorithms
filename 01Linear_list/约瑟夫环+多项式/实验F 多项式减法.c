@@ -13,17 +13,17 @@ LinkList CreatePoly(int iCound){
 	
 	pEnd=pHead = (LinkList)malloc(sizeof(LinkList));
 	pHead->next=NULL;
-
+	
+	
 	fflush(stdin);
-	for(i=0;i<iCound+1;i++){
+	for(i=0;i<iCound;i++){
 		pNew = (LinkList)malloc(sizeof(LinkList)) ;
-		scanf("%c%d%c%d%c)",&a,&pNew->coef,&a,&pNew->expn,&a);
+		scanf("%c%d%c%d%c",&a,&pNew->coef,&a,&pNew->expn,&a);
 		
 		pEnd->next = pNew;
 		pEnd = pNew;
 	}
 	pNew->next =NULL;
-	pHead=pHead->next;
 	return pHead;
 }
 void PrintPolyn(LinkList pHead){

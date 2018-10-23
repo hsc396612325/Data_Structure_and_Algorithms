@@ -143,7 +143,7 @@ int Convert(char str[]) {
 }
 int main(void){
 	sign=InitStack(); 
-	char str[100]="9+(3-1)*3+10/2";
+	char str[100]="1-(2+3)*4+5/6";
 	//scanf("%s",str); 
 	Convert(str);
 }
